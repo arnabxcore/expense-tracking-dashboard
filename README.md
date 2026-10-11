@@ -81,7 +81,8 @@ Add screenshots of your own running project to the `screenshots/` folder, using 
 budgets.png)
 
 ### Accounts
-![Accounts screenshot](screenshots/accounts.png)
+![Accounts screenshot]
+(Phone storage/Download/accounts.png.)
 
 ### Settings
 ![Settings screenshot](screenshots/settings.png)
