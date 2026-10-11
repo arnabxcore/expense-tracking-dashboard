@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A responsive personal finance dashboard built with HTML, CSS and JavaScript.">
+  <title>ExTrack — Personal Finance Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#dashboard"><span class="brand-mark">↗</span><span>EX<span class="brand-light">TRACK</span></span></a>
+    <nav class="navigation" aria-label="Main navigation">
+      <a class="nav-link active" href="#dashboard" data-section="dashboard"><span>▦</span>Dashboard</a>
+      <a class="nav-link" href="#transactions" data-section="transactions"><span>⇄</span>Transactions</a>
+      <a class="nav-link" href="#budgets" data-section="budgets"><span>▤</span>Budgets</a>
+      <a class="nav-link" href="#accounts" data-section="accounts"><span>▣</span>Accounts</a>
+      <a class="nav-link" href="#settings" data-section="settings"><span>♙</span>Settings</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="help-card"><span class="help-icon">✦</span><strong>Take control<br>of your money</strong><p>Small steps make a big difference.</p></div>
+      <div class="profile-mini"><div class="avatar">A</div><div><strong id="profileName">Alex Morgan</strong><small>Personal account</small></div><span class="dots">•••</span></div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+      <div><p class="eyebrow">PERSONAL FINANCE</p><h1 id="greeting">Good evening, Alex <span class="wave">✦</span></h1><p class="subtitle" id="pageSubtitle">Here's what's happening with your money today.</p></div>
+      <div class="top-actions"><button class="icon-button" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">◐</button><button class="icon-button notification" aria-label="Notifications">♧<i></i></button><div class="avatar top-avatar">A</div></div>
+    </header>
+
+    <section class="page-view active-view" id="dashboardPage">
+      <section class="toolbar"><div><h2>Overview</h2><span class="muted">Track your financial health at a glance.</span></div><div class="toolbar-actions"><label class="select-wrap"><span class="sr-only">Select month</span><select id="monthFilter"><option value="all">All time</option><option value="2026-10">October 2026</option><option value="2026-09">September 2026</option><option value="2026-08">August 2026</option></select></label><button class="primary-button" id="addTransactionBtn">＋ Add transaction</button></div></section>
+      <section class="summary-grid">
+        <article class="summary-card balance-card"><div class="card-top"><span class="card-label">Total balance</span><span class="metric-icon purple">◈</span></div><div class="metric" id="balanceValue">₹82,000</div><div class="metric-foot"><span class="trend positive">↗ 8.2%</span><span>vs. last month</span></div><div class="balance-decoration"></div></article>
+        <article class="summary-card"><div class="card-top"><span class="card-label">Total income</span><span class="metric-icon green">↙</span></div><div class="metric" id="incomeValue">₹35,500</div><div class="metric-foot"><span class="trend positive">↗ 5.4%</span><span>vs. last month</span></div><div class="mini-bars income-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+        <article class="summary-card"><div class="card-top"><span class="card-label">Total expenses</span><span class="metric-icon orange">↗</span></div><div class="metric" id="expenseValue">₹12,450</div><div class="metric-foot"><span class="trend negative">↗ 2.1%</span><span>vs. last month</span></div><div class="mini-bars expense-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+        <article class="summary-card"><div class="card-top"><span class="card-label">Savings rate</span><span class="metric-icon blue">％</span></div><div class="metric" id="savingsValue">64.9%</div><div class="metric-foot"><span class="trend positive">↗ 3.8%</span><span>of your income</span></div><div class="progress-track"><span id="savingsProgress"></span></div></article>
+      </section>
+      <section class="content-grid">
+        <article class="panel spending-panel"><div class="panel-heading"><div><h3>Income vs. expenses</h3><p class="muted">Your cash flow over time</p></div><select id="chartPeriod" aria-label="Chart period"><option value="6">Last 6 months</option><option value="12">Last 12 months</option></select></div><div class="chart-legend"><span><i class="legend-dot income-dot"></i>Income</span><span><i class="legend-dot expense-dot"></i>Expenses</span></div><div class="bar-chart" id="barChart" role="img" aria-label="Bar chart comparing monthly income and expenses"></div></article>
+        <article class="panel category-panel"><div class="panel-heading"><div><h3>Spending breakdown</h3><p class="muted">Where your money goes</p></div><button class="more-button" aria-label="More options">•••</button></div><div class="donut-wrap"><div class="donut" id="donutChart"><div class="donut-center"><strong id="donutTotal">₹12.4k</strong><span>Total spent</span></div></div></div><div class="category-legend" id="categoryLegend"></div></article>
+      </section>
+      <section class="panel transactions-panel" id="transactions"><div class="panel-heading transaction-heading"><div><h3>Recent transactions</h3><p class="muted">Your latest money movements</p></div><button class="text-button" id="viewAllBtn">View all <span>→</span></button></div><div class="table-tools"><label class="search-box"><span>⌕</span><input type="search" id="searchInput" placeholder="Search transactions..." aria-label="Search transactions"></label><label class="filter-select"><span class="sr-only">Filter by type</span><select id="typeFilter"><option value="all">All types</option><option value="income">Income</option><option value="expense">Expense</option></select></label><button class="outline-button" id="exportBtn">⇩ Export CSV</button></div><div class="table-scroll"><table><thead><tr><th>TRANSACTION</th><th>CATEGORY</th><th>DATE</th><th>PAYMENT METHOD</th><th>AMOUNT</th><th>STATUS</th><th></th></tr></thead><tbody id="transactionRows"></tbody></table></div><div class="empty-state" id="emptyState" hidden>No transactions found. Try another search or add a transaction.</div><div class="table-footer"><span id="tableCount">Showing 6 transactions</span><button class="text-button" id="resetDemoBtn">Reset demo data</button></div></section>
+    </section>
+
+    <section class="page-view" id="budgetsPage">
+      <div class="toolbar"><div><h2>Monthly budgets</h2><span class="muted">Plan your spending and stay on track.</span></div><button class="primary-button" id="addBudgetBtn">＋ Create budget</button></div>
+      <div class="summary-grid three-cards"><article class="summary-card"><div class="card-top"><span class="card-label">Total budget</span><span class="metric-icon purple">▤</span></div><div class="metric" id="budgetTotal">₹25,000</div><div class="metric-foot"><span>Across all categories</span></div></article><article class="summary-card"><div class="card-top"><span class="card-label">Spent so far</span><span class="metric-icon orange">↗</span></div><div class="metric" id="budgetSpent">₹0</div><div class="metric-foot"><span>From tracked transactions</span></div></article><article class="summary-card"><div class="card-top"><span class="card-label">Remaining</span><span class="metric-icon green">✓</span></div><div class="metric" id="budgetRemaining">₹25,000</div><div class="metric-foot"><span id="budgetRemainingNote">Available this month</span></div></article></div>
+      <div class="section-title-row"><div><h3>Budget categories</h3><p class="muted">Actual spending compared with your limits.</p></div><span class="month-chip">October 2026</span></div>
+      <div class="budget-grid" id="budgetCards"></div>
+    </section>
+
+    <section class="page-view" id="accountsPage">
+      <div class="toolbar"><div><h2>Your accounts</h2><span class="muted">See where your money is held.</span></div><button class="primary-button" id="addAccountBtn">＋ Add account</button></div>
+      <div class="summary-grid three-cards"><article class="summary-card"><div class="card-top"><span class="card-label">Total account balance</span><span class="metric-icon purple">◈</span></div><div class="metric" id="accountsTotal">₹82,000</div><div class="metric-foot"><span>Across your accounts</span></div></article><article class="summary-card"><div class="card-top"><span class="card-label">Active accounts</span><span class="metric-icon blue">▣</span></div><div class="metric" id="accountsCount">3</div><div class="metric-foot"><span>Cash and bank accounts</span></div></article><article class="summary-card"><div class="card-top"><span class="card-label">Account types</span><span class="metric-icon green">⌂</span></div><div class="metric" id="accountTypes">3</div><div class="metric-foot"><span>Different ways to pay</span></div></article></div>
+      <div class="section-title-row"><div><h3>All accounts</h3><p class="muted">Demo accounts are stored locally in your browser.</p></div></div>
+      <div class="account-grid" id="accountCards"></div>
+    </section>
+
+    <section class="page-view" id="settingsPage">
+      <div class="toolbar"><div><h2>Settings</h2><span class="muted">Personalize your ExTrack experience.</span></div><button class="primary-button" id="saveSettingsBtn">Save settings</button></div>
+      <div class="settings-layout">
+        <article class="panel settings-panel"><div class="settings-section-heading"><span class="settings-icon">♙</span><div><h3>Profile preferences</h3><p class="muted">Customize how your dashboard greets you.</p></div></div><label class="settings-field">Display name<input id="settingName" maxlength="35" placeholder="Your name"></label><label class="settings-field">Preferred currency<select id="settingCurrency"><option value="INR">Indian Rupee (₹ INR)</option><option value="USD">US Dollar ($ USD)</option><option value="EUR">Euro (€ EUR)</option><option value="GBP">British Pound (£ GBP)</option></select></label><div class="settings-row"><div><strong>Dark appearance</strong><p class="muted">Use a darker theme for the dashboard.</p></div><label class="switch"><input type="checkbox" id="settingDark"><span class="slider"></span></label></div><div class="settings-row"><div><strong>Show demo data</strong><p class="muted">Restore sample transactions and budgets.</p></div><button class="outline-button" id="restoreDemoSettings">Restore demo data</button></div></article>
+        <article class="panel settings-panel"><div class="settings-section-heading"><span class="settings-icon">♧</span><div><h3>Data & privacy</h3><p class="muted">Understand where your information is stored.</p></div></div><div class="privacy-note"><strong>🔒 Your data stays in this browser</strong><p>Transactions, accounts, budgets, and preferences are stored in localStorage on this device. This demo does not connect to a bank or send your financial data to a server.</p></div><div class="settings-row"><div><strong>Export your transactions</strong><p class="muted">Download your transaction history as a CSV file.</p></div><button class="outline-button" id="settingsExport">⇩ Export CSV</button></div><div class="settings-row"><div><strong>Clear saved data</strong><p class="muted">Remove saved app data from this browser.</p></div><button class="danger-button" id="clearDataBtn">Clear data</button></div></article>
+      </div>
+    </section>
+    <footer class="footer"><span>© 2026 ExTrack</span><span>Made for smarter money habits <b>♥</b></span></footer>
+  </main>
+</div>
+
+<dialog id="transactionDialog"><form method="dialog" id="transactionForm"><div class="dialog-heading"><div><p class="eyebrow">YOUR FINANCES</p><h2>Add transaction</h2></div><button type="button" class="close-dialog" id="closeDialog" aria-label="Close">×</button></div><label>Description<input id="description" required maxlength="50" placeholder="e.g. Grocery shopping"></label><div class="form-row"><label>Amount (<span class="currency-label">₹</span>)<input id="amount" type="number" min="0.01" step="0.01" required placeholder="1200"></label><label>Type<select id="transactionType"><option value="expense">Expense</option><option value="income">Income</option></select></label></div><div class="form-row"><label>Category<select id="category"><option>Food</option><option>Shopping</option><option>Transport</option><option>Bills</option><option>Entertainment</option><option>Health</option><option>Salary</option><option>Freelance</option><option>Other</option></select></label><label>Date<input id="date" type="date" required></label></div><label>Payment method<select id="payment"><option>UPI</option><option>Debit card</option><option>Credit card</option><option>Bank transfer</option><option>Cash</option></select></label><div class="dialog-actions"><button type="button" class="outline-button" id="cancelDialog">Cancel</button><button type="submit" class="primary-button">Save transaction</button></div></form></dialog>
+
+<dialog id="budgetDialog"><form method="dialog" id="budgetForm"><div class="dialog-heading"><div><p class="eyebrow">SPENDING PLAN</p><h2>Create budget</h2></div><button type="button" class="close-dialog" data-close="budgetDialog" aria-label="Close">×</button></div><label>Category<select id="budgetCategory"><option>Food</option><option>Shopping</option><option>Transport</option><option>Bills</option><option>Entertainment</option><option>Health</option><option>Other</option></select></label><label>Monthly limit (<span class="currency-label">₹</span>)<input id="budgetLimit" type="number" min="1" step="1" required placeholder="5000"></label><div class="dialog-actions"><button type="button" class="outline-button" data-close="budgetDialog">Cancel</button><button type="submit" class="primary-button">Save budget</button></div></form></dialog>
+
+<dialog id="accountDialog"><form method="dialog" id="accountForm"><div class="dialog-heading"><div><p class="eyebrow">MONEY ACCOUNTS</p><h2>Add account</h2></div><button type="button" class="close-dialog" data-close="accountDialog" aria-label="Close">×</button></div><label>Account name<input id="accountName" required maxlength="40" placeholder="e.g. Everyday savings"></label><div class="form-row"><label>Account type<select id="accountType"><option>Bank account</option><option>Cash</option><option>Credit card</option><option>Digital wallet</option></select></label><label>Current balance (<span class="currency-label">₹</span>)<input id="accountBalance" type="number" min="0" step="0.01" required placeholder="10000"></label></div><label>Institution (optional)<input id="accountInstitution" maxlength="40" placeholder="e.g. My bank"></label><div class="dialog-actions"><button type="button" class="outline-button" data-close="accountDialog">Cancel</button><button type="submit" class="primary-button">Save account</button></div></form></dialog>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="script.js"></script>
+</body>
+</html>
