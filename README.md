@@ -85,7 +85,6 @@ Add screenshots of your own running project to the `screenshots/` folder, using 
 ### Settings
 ![Settings screenshot](screenshots/settings.png)
 
-> If you have not added the screenshots yet, these image previews will not appear until the files exist in the repository.
 
 ## 🔐 Data and Privacy
 
