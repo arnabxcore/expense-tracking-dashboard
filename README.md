@@ -77,7 +77,8 @@ Add screenshots of your own running project to the `screenshots/` folder, using 
 ![Transactions screenshot](screenshots/transactions.png)
 
 ### Budgets
-![Budgets screenshot](screenshots/budgets.png)
+![Budgets screenshot](
+budgets.png)
 
 ### Accounts
 ![Accounts screenshot](screenshots/accounts.png)
